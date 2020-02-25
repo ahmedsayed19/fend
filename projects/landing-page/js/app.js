@@ -54,4 +54,81 @@
 
 // Set sections as active
 
+// const Sections = [document.querySelector("#section1"), document.querySelector("#section2"), document.querySelector("#section3")];
+const Sections = document.querySelectorAll(".landing__container");
 
+
+// get sections positions 
+let sectionsPos = [];
+
+const length = Sections.length;
+sectionsPos.length = length + 1;
+sectionsPos[Sections.length] = 999999;
+for(let i = 0; i < sectionsPos.length - 1; i++){
+    sectionsPos[i] = Sections[i].parentElement.offsetTop;
+}
+
+// remove activation from sections and link items
+const nav_items = document.querySelectorAll(".menu__link");
+function removeActivation(){
+    for(let i = 0; i < length; i++){
+        nav_items[i].classList.remove("active__link");
+        Sections[i].parentElement.classList.remove("your-active-class");
+    }
+}
+
+
+// this function scroll to the section that you clicked and activate it
+const sectionName = document.querySelectorAll('h2');
+const nav = document.querySelector("#navbar__list");
+nav.addEventListener("click", function (e){
+    if(e.target.nodeName === 'LI'){
+        removeActivation();   
+        for(let i = 0; i < length; i++){
+            if(e.target.textContent == sectionName[i].textContent){
+                Sections[i].parentElement.scrollIntoView({behavior: "smooth"});
+                Sections[i].parentElement.classList.add("your-active-class")
+                e.target.classList.add("active__link");
+                break;
+            }
+        }
+    }
+});
+
+// this function activate the section you scrolled to 
+let curActiveElem = 1;
+window.addEventListener('scroll', function(){
+    let pos = Math.floor(window.scrollY);
+    for(let i = 0; i < length; i++){
+        if(pos >= sectionsPos[i] && pos < sectionsPos[i + 1]){
+            if (curActiveElem == i) break;
+            removeActivation();
+            Sections[i].parentElement.classList.add("your-active-class")
+            nav_items[i].classList.add("active__link");
+            curActiveElem = i;
+        }
+    }
+} )
+
+
+
+// this function scroll to the section that you clicked and activate it
+// const nav = document.querySelector("#navbar__list");
+// nav.addEventListener("click", function (e){
+//     if(e.target.nodeName === 'LI'){
+//         removeActivation();
+//         if(e.target.getAttribute("data-nav") == "s1") {
+//             Sections[0].scrollIntoView({behavior: "smooth"});
+//             Sections[0].parentElement.classList.add("your-active-class")
+//         }
+//         else if(e.target.getAttribute("data-nav") == "s2") {
+//             Sections[1].scrollIntoView({behavior: "smooth"});
+//             Sections[1].parentElement.classList.add("your-active-class")
+//         }
+//         else {
+//             Sections[2].scrollIntoView({behavior: "smooth"});
+//             Sections[2].parentElement.classList.add("your-active-class")
+//         }
+//         e.target.classList.add("active__link");
+//     }
+// });
