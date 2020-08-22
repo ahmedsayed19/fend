@@ -54,7 +54,6 @@
 
 // Set sections as active
 
-// const Sections = [document.querySelector("#section1"), document.querySelector("#section2"), document.querySelector("#section3")];
 const Sections = document.querySelectorAll(".landing__container");
 
 
@@ -94,7 +93,6 @@ nav.addEventListener("click", function (e){
         }
     }
 });
-
 // this function activate the section you scrolled to 
 let curActiveElem = 1;
 window.addEventListener('scroll', function(){
@@ -109,26 +107,3 @@ window.addEventListener('scroll', function(){
         }
     }
 } )
-
-
-
-// this function scroll to the section that you clicked and activate it
-// const nav = document.querySelector("#navbar__list");
-// nav.addEventListener("click", function (e){
-//     if(e.target.nodeName === 'LI'){
-//         removeActivation();
-//         if(e.target.getAttribute("data-nav") == "s1") {
-//             Sections[0].scrollIntoView({behavior: "smooth"});
-//             Sections[0].parentElement.classList.add("your-active-class")
-//         }
-//         else if(e.target.getAttribute("data-nav") == "s2") {
-//             Sections[1].scrollIntoView({behavior: "smooth"});
-//             Sections[1].parentElement.classList.add("your-active-class")
-//         }
-//         else {
-//             Sections[2].scrollIntoView({behavior: "smooth"});
-//             Sections[2].parentElement.classList.add("your-active-class")
-//         }
-//         e.target.classList.add("active__link");
-//     }
-// });
