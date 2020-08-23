@@ -53,22 +53,43 @@
 // Scroll to section on link click
 
 // Set sections as active
-
-const Sections = document.querySelectorAll(".landing__container");
-
-
-// get sections positions 
 let sectionsPos = [];
 
+const Sections = document.querySelectorAll(".landing__container");
 const length = Sections.length;
+
+
+// The names of the sections
+
+let sectionName = [];
+sectionName.length = length;
+for(let i = 0; i < length; i++)
+sectionName[i] = Sections[i].parentElement.getAttribute("data-nav");
+
+// Building menu  
+const fragment = document.createDocumentFragment();
+for(let i = 0; i < length; i++){
+    const li = document.createElement('li');
+    if(!i)
+        li.setAttribute("class","menu__link active__link");
+    else
+        li.setAttribute("class","menu__link");
+    li.textContent = sectionName[i];
+    fragment.appendChild(li);
+}
+
+const ul = document.querySelector("#navbar__list");
+ul.appendChild(fragment);
+
+// get sections positions 
 sectionsPos.length = length + 1;
 sectionsPos[Sections.length] = 999999;
 for(let i = 0; i < sectionsPos.length - 1; i++){
     sectionsPos[i] = Sections[i].parentElement.offsetTop;
 }
 
-// remove activation from sections and link items
 const nav_items = document.querySelectorAll(".menu__link");
+// remove activation from sections and link items
 function removeActivation(){
     for(let i = 0; i < length; i++){
         nav_items[i].classList.remove("active__link");
@@ -78,13 +99,14 @@ function removeActivation(){
 
 
 // this function scroll to the section that you clicked and activate it
-const sectionName = document.querySelectorAll('h2');
+
+
 const nav = document.querySelector("#navbar__list");
 nav.addEventListener("click", function (e){
     if(e.target.nodeName === 'LI'){
         removeActivation();   
         for(let i = 0; i < length; i++){
-            if(e.target.textContent == sectionName[i].textContent){
+            if(e.target.textContent == sectionName[i]){
                 Sections[i].parentElement.scrollIntoView({behavior: "smooth"});
                 Sections[i].parentElement.classList.add("your-active-class")
                 e.target.classList.add("active__link");
